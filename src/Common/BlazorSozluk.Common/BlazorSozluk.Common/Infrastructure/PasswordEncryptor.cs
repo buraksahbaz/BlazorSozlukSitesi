@@ -9,7 +9,7 @@ namespace BlazorSozluk.Common.Infrastructure
 {
     public class PasswordEncryptor
     {
-        public static string Encrytor(string password)
+        public static string Encrpt(string password)
         {
             using var md5 = MD5.Create();
             

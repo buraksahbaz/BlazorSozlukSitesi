@@ -22,7 +22,7 @@ namespace BlazorSozluk.Infrastructure.Persistence.Context
                 .RuleFor(i => i.LastName, i => i.Person.LastName)
                 .RuleFor(i => i.EmailAddress, i => i.Internet.Email())
                 .RuleFor(i => i.UserName, i => i.Internet.UserName())
-                .RuleFor(i => i.Password, i => PasswordEncryptor.Encrytor(i.Internet.Password()))
+                .RuleFor(i => i.Password, i => PasswordEncryptor.Encrpt(i.Internet.Password()))
                 .RuleFor(i => i.EmailConfirmed, i => i.PickRandom(true, false))
                 .Generate(500);
 

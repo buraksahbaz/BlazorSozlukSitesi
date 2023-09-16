@@ -31,7 +31,7 @@ namespace BlazorSozluk.Api.Application.Interfaces.Repositories
         Task<int> AddOrUpdateAsync(TEntity entity);
         int AddOrUpdate(TEntity entity);
         IQueryable<TEntity> AsQueryable();
-        Task<List<TEntity>> GetAll();
+        Task<List<TEntity>> GetAll(bool noTracking = true);
 
         Task<List<TEntity>> GetList(Expression<Func<TEntity, bool>> predicate, bool noTracking = true, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes);
         Task<TEntity> GetByIdAsync(Guid id, bool noTracking = true, params Expression<Func<TEntity, object>>[] includes);
