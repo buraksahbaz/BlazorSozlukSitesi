@@ -15,7 +15,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorSozluk.Api.Application.Features.Commands.User
+namespace BlazorSozluk.Api.Application.Features.Commands.User.Login
 {
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUserViewModel>
     {
@@ -68,7 +68,7 @@ namespace BlazorSozluk.Api.Application.Features.Commands.User
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiry = DateTime.Now.AddDays(10);
 
-            var token = new JwtSecurityToken(claims:claims,
+            var token = new JwtSecurityToken(claims: claims,
                                              expires: expiry,
                                              signingCredentials: creds,
                                              notBefore: DateTime.Now);

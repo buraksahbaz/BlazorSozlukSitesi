@@ -1,6 +1,8 @@
 using BlazorSozluk.Api.Application.Extentions;
+using BlazorSozluk.Api.WebApi.Infrastructure.Extensions;
 using BlazorSozluk.Infrastructure.Persistence.Extensions;
 using FluentValidation.AspNetCore;
+using Polly.Bulkhead;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,8 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.ConfigureAuth(builder.Configuration);
+
 builder.Services.AddApplicationRegistration();
 builder.Services.AddInfrastructureRegistration(builder.Configuration);
 
@@ -32,6 +36,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.ConfigureExceptionHandling(app.Environment.IsDevelopment());
+
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
