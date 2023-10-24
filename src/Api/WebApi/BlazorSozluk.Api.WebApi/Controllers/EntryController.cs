@@ -3,6 +3,7 @@ using BlazorSozluk.Api.Application.Features.Queries.GetEntryComments;
 using BlazorSozluk.Api.Application.Features.Queries.GetEntryDetail;
 using BlazorSozluk.Api.Application.Features.Queries.GetMainPageEntries;
 using BlazorSozluk.Api.Application.Features.Queries.GetUserEntries;
+using BlazorSozluk.Common.Infrastructure.Exceptions;
 using BlazorSozluk.Common.Models.Queries;
 using BlazorSozluk.Common.Models.RequestModels;
 using MediatR;
@@ -50,7 +51,6 @@ namespace BlazorSozluk.Api.WebApi.Controllers
         public async Task<IActionResult> GetEntries([FromQuery] GetEntriesQuery query)
         {
             var entries = await _mediator.Send(query);
-            
             return Ok(entries);
         }
 
@@ -59,7 +59,6 @@ namespace BlazorSozluk.Api.WebApi.Controllers
         public async Task<IActionResult> GetEntries(int page, int pageSize)
         {
             var entries = await _mediator.Send(new GetMainPageEntriesQuery(UserId, page, pageSize));
-
             return Ok(entries);
         }
 

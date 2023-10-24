@@ -38,7 +38,6 @@ app.UseHttpsRedirection();
 
 app.ConfigureExceptionHandling(app.Environment.IsDevelopment());
 
-
 app.UseAuthentication();
 app.UseAuthorization();
 
