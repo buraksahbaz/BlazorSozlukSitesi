@@ -19,6 +19,11 @@ namespace BlazorSozluk.Common.Infrastructure.Results
             
         }
 
+        public ValidationResponseModel()
+        {
+            
+        }
+
         [JsonIgnore]
         public string FlattenErrors => Errors != null ? string.Join(Environment.NewLine, Errors) : string.Empty;
 

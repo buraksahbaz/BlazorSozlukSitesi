@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorSozluk.Api.WebApi.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : BaseController
     {
@@ -51,6 +51,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
         {
             var res = await _mediator.Send(command);
@@ -59,6 +60,8 @@ namespace BlazorSozluk.Api.WebApi.Controllers
         }
 
         [HttpPost]
+        [Route("Update")]
+        [Authorize]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommand command)
         {
             var res = await _mediator.Send(command);

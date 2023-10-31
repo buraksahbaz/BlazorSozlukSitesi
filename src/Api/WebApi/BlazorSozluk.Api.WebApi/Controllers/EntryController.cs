@@ -7,6 +7,7 @@ using BlazorSozluk.Common.Infrastructure.Exceptions;
 using BlazorSozluk.Common.Models.Queries;
 using BlazorSozluk.Common.Models.RequestModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazorSozluk.Api.WebApi.Controllers
@@ -39,6 +40,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
 
         [HttpGet]
         [Route("UserEntries")]
+        [Authorize]
         public async Task<IActionResult> GetUserEntries(string userName, Guid userId, int page, int pageSize)
         {
             if (userId == Guid.Empty && string.IsNullOrEmpty(userName))
@@ -64,6 +66,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
 
         [HttpPost]
         [Route("CreateEntry")]
+        [Authorize]
         public async Task<IActionResult> CreateEntry([FromBody] CreateEntryCommand command)
         {
             if (!command.CreatedById.HasValue)
@@ -75,6 +78,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
 
         [HttpPost]
         [Route("CreateEntryComment")]
+        [Authorize]
         public async Task<IActionResult> CreateEntryComment([FromBody] CreateEntryCommentCommand command)
         {
             if (!command.CreatedById.HasValue)

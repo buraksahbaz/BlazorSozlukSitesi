@@ -8,7 +8,9 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using BlazorSozluk.WebApp.Infrastructure.Auth;
 using BlazorSozluk.WebApp.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BlazorSozluk.WebApp.Infrastructure.Services
 {
@@ -16,10 +18,12 @@ namespace BlazorSozluk.WebApp.Infrastructure.Services
     {
         private readonly HttpClient _client;
         private readonly ISyncLocalStorageService _syncLocalStorageService;
-        public IdentityService(HttpClient client, ISyncLocalStorageService syncLocalStorageService)
+        private readonly AuthenticationStateProvider _authenticationStateProvider;
+        public IdentityService(HttpClient client, ISyncLocalStorageService syncLocalStorageService, AuthenticationStateProvider authenticationStateProvider)
         {
             _client = client;
             _syncLocalStorageService = syncLocalStorageService;
+            _authenticationStateProvider = authenticationStateProvider;
         }
         public bool IsLoggedIn => !string.IsNullOrEmpty(GetUserToken());
 
@@ -61,7 +65,7 @@ namespace BlazorSozluk.WebApp.Infrastructure.Services
                 _syncLocalStorageService.SetToken(response.Token);
                 _syncLocalStorageService.SetUsername(response.UserName);
                 _syncLocalStorageService.SetUserId(response.Id);
-                //((AuthStateProvider)authenticationStateProvider).NotifyUserLogin(response.UserName, response.Id);
+                ((AuthStateProvider)_authenticationStateProvider).NotifyUserLogin(response.UserName, response.Id);
 
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", response.UserName);
                 return true;
@@ -75,7 +79,7 @@ namespace BlazorSozluk.WebApp.Infrastructure.Services
             _syncLocalStorageService.RemoveItem(LocalStorageExtension.UserName);
             _syncLocalStorageService.RemoveItem(LocalStorageExtension.UserId);
 
-            //((AuthStateProvider)authenticationStateProvider).NotifyUserLogout();
+            ((AuthStateProvider)_authenticationStateProvider).NotifyUserLogout();
             _client.DefaultRequestHeaders.Authorization = null;
         }
     }
