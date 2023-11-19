@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorSozluk.Api.Application.Extentions
+namespace BlazorSozluk.Api.Application.Extensions
 {
     public static class Registration
     {

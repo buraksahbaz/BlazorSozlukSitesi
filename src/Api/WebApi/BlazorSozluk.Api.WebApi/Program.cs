@@ -1,9 +1,8 @@
-using BlazorSozluk.Api.Application.Extentions;
+using BlazorSozluk.Api.Application.Extensions;
 using BlazorSozluk.Api.WebApi.Infrastructure.ActionFilters;
 using BlazorSozluk.Api.WebApi.Infrastructure.Extensions;
 using BlazorSozluk.Infrastructure.Persistence.Extensions;
 using FluentValidation.AspNetCore;
-using Polly.Bulkhead;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +16,7 @@ builder.Services
     })
     .AddFluentValidation()
         .ConfigureApiBehaviorOptions(o => o.SuppressModelStateInvalidFilter = true);
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
